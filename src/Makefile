@@ -22,6 +22,13 @@ else ifeq ($(TARGET),ST_DONGLE)
 	DEFS     = -DUSE_SYS3 -DFREE_STANDING -DTARGET_ST_DONGLE -DHAVE_PUSH_BUTTON
 	LDSCRIPT = stm32f103.ld
 	BOARD    = $(CHOPSTX)/board/board-st-dongle.h
+else ifeq ($(TARGET),ST_DONGLE_PUSH_PB8)
+	MCU      = cortex-m3
+	CHIP     = stm32f103
+	DRIVERS  = pbt.c
+	DEFS     = -DUSE_SYS3 -DFREE_STANDING -DTARGET_ST_DONGLE -DHAVE_PUSH_BUTTON -DPBT_PORT=B -DPBT_PIN=8
+	LDSCRIPT = stm32f103.ld
+	BOARD    = $(CHOPSTX)/board/board-st-dongle-pbt-pb8.h
 else ifeq ($(TARGET),U2F_DONGLE)
 	MCU      = cortex-m3
 	CHIP     = stm32f103

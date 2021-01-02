@@ -71,8 +71,14 @@ struct GPIO {
 #define GPIO_PBT_BASE  GPIOB_BASE
 #define GPIO_PBT_IS_LO 0
 #elif defined(TARGET_ST_DONGLE)
-#define GPIO_PBT_RD    5
-#define GPIO_PBT_BASE  GPIOA_BASE
+#if !defined(PBT_PORT)
+#define PBT_PORT  A
+#define PBT_PIN   5
+#endif 
+#define GPIO_PBT_RD    PBT_PIN
+#define GPIO_PBT_BASE__(port) GPIO ## port ## _BASE
+#define GPIO_PBT_BASE_(port) GPIO_PBT_BASE__(port)
+#define GPIO_PBT_BASE  GPIO_PBT_BASE_(PBT_PORT)
 #define GPIO_PBT_IS_LO 1
 #elif defined(TARGET_U2F_DONGLE)
 #define GPIO_PBT_RD    14
